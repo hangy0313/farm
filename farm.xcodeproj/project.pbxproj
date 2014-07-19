@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		B15D51CB197981B5001F5F4C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51CA197981B5001F5F4C /* main.cpp */; };
 		B15D51CD197981B5001F5F4C /* farm.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = B15D51CC197981B5001F5F4C /* farm.1 */; };
+		B15D51D81979831D001F5F4C /* Animal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51D61979831D001F5F4C /* Animal.cpp */; };
+		B15D51DE19799723001F5F4C /* Cat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51DC19799723001F5F4C /* Cat.cpp */; };
+		B15D51E11979B6E7001F5F4C /* Cow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51DF1979B6E7001F5F4C /* Cow.cpp */; };
+		B15D51E41979B777001F5F4C /* Chicken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51E21979B777001F5F4C /* Chicken.cpp */; };
+		B15D51E71979B809001F5F4C /* Horse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B15D51E51979B809001F5F4C /* Horse.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +33,16 @@
 		B15D51C7197981B5001F5F4C /* farm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = farm; sourceTree = BUILT_PRODUCTS_DIR; };
 		B15D51CA197981B5001F5F4C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B15D51CC197981B5001F5F4C /* farm.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = farm.1; sourceTree = "<group>"; };
+		B15D51D61979831D001F5F4C /* Animal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animal.cpp; sourceTree = "<group>"; };
+		B15D51D71979831D001F5F4C /* Animal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animal.h; path = farm/Animal.h; sourceTree = SOURCE_ROOT; };
+		B15D51DC19799723001F5F4C /* Cat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cat.cpp; path = farm/Cat.cpp; sourceTree = SOURCE_ROOT; };
+		B15D51DD19799723001F5F4C /* Cat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cat.h; sourceTree = "<group>"; };
+		B15D51DF1979B6E7001F5F4C /* Cow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cow.cpp; sourceTree = "<group>"; };
+		B15D51E01979B6E7001F5F4C /* Cow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cow.h; sourceTree = "<group>"; };
+		B15D51E21979B777001F5F4C /* Chicken.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chicken.cpp; sourceTree = "<group>"; };
+		B15D51E31979B777001F5F4C /* Chicken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chicken.h; sourceTree = "<group>"; };
+		B15D51E51979B809001F5F4C /* Horse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Horse.cpp; sourceTree = "<group>"; };
+		B15D51E61979B809001F5F4C /* Horse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Horse.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +77,16 @@
 			children = (
 				B15D51CA197981B5001F5F4C /* main.cpp */,
 				B15D51CC197981B5001F5F4C /* farm.1 */,
+				B15D51D61979831D001F5F4C /* Animal.cpp */,
+				B15D51D71979831D001F5F4C /* Animal.h */,
+				B15D51DC19799723001F5F4C /* Cat.cpp */,
+				B15D51DF1979B6E7001F5F4C /* Cow.cpp */,
+				B15D51E21979B777001F5F4C /* Chicken.cpp */,
+				B15D51E31979B777001F5F4C /* Chicken.h */,
+				B15D51E51979B809001F5F4C /* Horse.cpp */,
+				B15D51E61979B809001F5F4C /* Horse.h */,
+				B15D51E01979B6E7001F5F4C /* Cow.h */,
+				B15D51DD19799723001F5F4C /* Cat.h */,
 			);
 			path = farm;
 			sourceTree = "<group>";
@@ -117,7 +142,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B15D51DE19799723001F5F4C /* Cat.cpp in Sources */,
+				B15D51E11979B6E7001F5F4C /* Cow.cpp in Sources */,
 				B15D51CB197981B5001F5F4C /* main.cpp in Sources */,
+				B15D51E41979B777001F5F4C /* Chicken.cpp in Sources */,
+				B15D51D81979831D001F5F4C /* Animal.cpp in Sources */,
+				B15D51E71979B809001F5F4C /* Horse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
