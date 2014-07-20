@@ -22,7 +22,7 @@ void createAnimal(Animal* a[], int &index);
 void giveName(Animal* a[], int &index);
 void giveEnergy(Animal* a[], int &index);
 void assignTrough(Animal* a[], int &index);
-bool checkTrough(Animal* a[], int &index, int num);
+bool troughIsUsed(Animal* a[], int &index, int num);
 
 void feed(Animal* a[], int &index, int troughArr[]);
 void showTroughInfo(Animal* a[], int &index, int troughArr[]);
@@ -141,21 +141,26 @@ void assignTrough(Animal* a[], int &index)
         cout << "assign a trough for your animal:\n";
         cin >> num;
         
-    }while(!checkTrough(a, index, num));
+    }while(troughIsUsed(a, index, num));
             
     a[index]->setTroughSlotNum(num);
 }
 
-bool checkTrough(Animal* a[], int &index, int num)
+bool troughIsUsed(Animal* a[], int &index, int num)
 {
-    bool check = true;
+    bool check = false;
     
     for(int i = 0;i < index;i++){
         if(num == a[i]->getTroughSlotNum()){
-            check = false;
-            cout << "trough_num: " << num << " is used\n";
+            check = true;
             break;
         }
+    }
+    
+    if(check){
+        cout << "trough_num: " << num << " is used\n";
+    }else{
+        cout << "trough_num: " << num << " is no animal used\n";
     }
     
     return check;
@@ -170,27 +175,33 @@ void feed(Animal* a[], int &index, int troughArr[])
     cout << endl << endl;
     cout << "Trough_num: \n";
     cin >> troughNumber;
-    cout << "How many: \n";
-    cin >> number;
-    troughArr[troughNumber] += number;
-    
-    showTroughInfo(a, index, troughArr);
+    if(troughIsUsed(a, index, troughNumber)){
+        cout << "How many: \n";
+        cin >> number;
+        troughArr[troughNumber] += number;
+        showTroughInfo(a, index, troughArr);
+    }
 }
 
 void showTroughInfo(Animal* a[], int &index, int troughArr[])
 {
     int troughNum, animalNum;
+    bool used;
     
     cout << "======TROUGH_INFOMATION=======\n";
     for(troughNum = 0;troughNum < maxTroughNum;troughNum++){
-        cout << "trough_num: " << troughNum << "  " << troughArr[troughNum] << " ";
+        used = false;
+        cout << "(" << troughNum << ") capacity: " << troughArr[troughNum];
         for(animalNum = 0;animalNum < index;animalNum++){
             if(troughNum == a[animalNum]->getTroughSlotNum()){
-                cout << endl << "====> name: " << a[animalNum]->getName()
-                     << "energy_level: " << a[animalNum]->getEnergyLevel();
-                
+                cout << " ==> name: " << a[animalNum]->getName()
+                     << "  energy_level: " << a[animalNum]->getEnergyLevel();
+                used = true;
                 continue;
             }
+        }
+        if(!used){
+            cout << " ==> No one using";
         }
         cout << endl;
     }

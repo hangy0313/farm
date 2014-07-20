@@ -12,11 +12,22 @@ Animal::Animal(){};
 
 Animal::Animal(string n, int el):name(n), energyLevel(el){};
 
+Animal::~Animal(){};
+
 void Animal::show()
 {
+    string kind;
+    
+    kind = typeid(*this).name();
+    kind = kind.substr(1, kind.length()-1);
+    
+    cout << "----------" << endl;
+    cout << kind << endl;
+    cout << "----------" << endl;
     cout << "name: " << getName() << endl;
     cout << "energy_evel: " << getEnergyLevel() << endl;
     cout << "trough_slot_num: " << getTroughSlotNum() << endl;
+    
     cout << endl;
 };
 

@@ -19,6 +19,7 @@ class Animal
 public:
     Animal();
     Animal(string n, int el);
+    virtual ~Animal();
     
     virtual void yell() = 0;
     void show();
