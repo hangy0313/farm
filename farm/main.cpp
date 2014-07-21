@@ -23,6 +23,9 @@ static Animal* animalArr[maxAnimalNum];
 static int troughArr[maxTroughNum];
 static int animalArrIndex = 0;
 
+bool animalIsValid();
+bool troughIsValid(int num);
+
 void createAnimal();
 void setAnimal();
 
@@ -79,9 +82,44 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
+bool animalIsValid()
+{
+    bool check;
+    
+    check = animalArrIndex < maxAnimalNum;
+    
+    if(!check){
+        cout << "Too much animals.\n";
+    }
+    
+    return check;
+}
+
+bool troughIsValid(int num)
+{
+    bool check;
+    
+    if(num < 0){
+        cout << "Invalid input number\n";
+        
+        return false;
+    }
+    
+    check = num < maxTroughNum;
+    if(!check){
+        cout << "No such number of trogh\n";
+    }
+    
+    return check;
+}
+
 void createAnimal()
 {
     string answer;
+    
+    if(!animalIsValid()){
+        return;
+    }
     
     cout << "======create animal=======\n";
     cout << "1. Cow\n";
@@ -166,12 +204,19 @@ void feed()
     cout << endl << endl;
     cout << "Trough_num: \n";
     cin >> troughNumber;
-    if(troughIsUsed(troughNumber)){
-        cout << "How many: \n";
-        cin >> number;
-        troughArr[troughNumber] += number;
-        showTroughInfo();
+    
+    if(!troughIsValid(troughNumber)){
+        return;
     }
+    
+    if(troughIsUsed(troughNumber)){
+        return;
+    }
+    
+    cout << "How many: \n";
+    cin >> number;
+    troughArr[troughNumber] += number;
+    showTroughInfo();
 }
 
 void showTroughInfo()
