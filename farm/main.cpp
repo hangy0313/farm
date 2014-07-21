@@ -21,15 +21,16 @@ const int maxAnimalNum = 10;
 
 static Animal* animalArr[maxAnimalNum];
 static int troughArr[maxTroughNum];
-static int animalArrIndex = 0;
+static int animalNowIndex = 0;
+static int animalLastIndex = 0;
+static int animalTotalNumber = 0;
 
 bool animalIsValid();
 bool troughIsValid(int num);
+bool animalArrIsAssigned(int num);
 
 void createAnimal();
 void setAnimal();
-
-bool troughIsUsed(int num);
 
 void feed();
 void showTroughInfo();
@@ -37,8 +38,6 @@ void showTroughInfo();
 void display();
 
 void call();
-template <class T>
-void call(T t);
 
 void advance();
 void checkDecease();
@@ -86,7 +85,7 @@ bool animalIsValid()
 {
     bool check;
     
-    check = animalArrIndex < maxAnimalNum;
+    check = animalTotalNumber < maxAnimalNum;
     
     if(!check){
         cout << "Too much animals.\n";
@@ -113,9 +112,21 @@ bool troughIsValid(int num)
     return check;
 }
 
+bool animalArrIsAssigned(int num)
+{
+    bool check = true;
+
+    if(animalArr[num] == nullptr){
+        check = false;
+    }
+    
+    return check;
+}
+
 void createAnimal()
 {
     string answer;
+    int num;
     
     if(!animalIsValid()){
         return;
@@ -130,25 +141,32 @@ void createAnimal()
     cin >> answer;
     
     if(answer == "1"){
-        animalArr[animalArrIndex] = new Cow;
+        animalArr[animalNowIndex] = new Cow;
         setAnimal();
-        animalArrIndex++;
     }
     if(answer == "2"){
-        animalArr[animalArrIndex] = new Cat;
+        animalArr[animalNowIndex] = new Cat;
         setAnimal();
-        animalArrIndex++;
     }
     if(answer == "3"){
-        animalArr[animalArrIndex] = new Chicken;
+        animalArr[animalNowIndex] = new Chicken;
         setAnimal();
-        animalArrIndex++;
     }
     if(answer == "4"){
-        animalArr[animalArrIndex] = new Horse;
+        animalArr[animalNowIndex] = new Horse;
         setAnimal();
-        animalArrIndex++;
     }
+    
+    for(num = maxAnimalNum;num >= 0;num--){
+        if(!animalArrIsAssigned(num)){
+            animalNowIndex = num;
+        }
+    }
+    
+    if(animalLastIndex < animalNowIndex){
+        animalLastIndex = animalNowIndex;
+    }
+    animalTotalNumber++;
 }
 
 void setAnimal()
@@ -158,41 +176,21 @@ void setAnimal()
     
     cout << "Enter a name for your animal:\n";
     cin >> name;
-    animalArr[animalArrIndex]->setName(name);
+    animalArr[animalNowIndex]->setName(name);
 
     cout << "Enter energy for your animal:\n";
     cin >> energy;
-    animalArr[animalArrIndex]->setEnergyLevel(energy);
+    animalArr[animalNowIndex]->setEnergyLevel(energy);
     
-    animalArr[animalArrIndex]->setTroughSlotNum(animalArrIndex);
+    animalArr[animalNowIndex]->setTroughSlotNum(animalNowIndex);
     
     cout << "Enter the period of each eating instant:\n";
     cin >> eatPeriod;
-    animalArr[animalArrIndex]->setEatPeriod(eatPeriod);
+    animalArr[animalNowIndex]->setEatPeriod(eatPeriod);
     
     cout << "Enter maximun food amount that can be eaten each time from its trough:\n";
     cin >> maxFoodAmt;
-    animalArr[animalArrIndex]->setMaxFoodAmt(maxFoodAmt);
-}
-
-bool troughIsUsed(int num)
-{
-    bool check = false;
-    
-    for(int i = 0;i < animalArrIndex;i++){
-        if(num == animalArr[i]->getTroughSlotNum()){
-            check = true;
-            break;
-        }
-    }
-    
-    if(check){
-        cout << "trough_num: " << setw(3) << num << " is used\n";
-    }else{
-        cout << "trough_num: " << setw(3) << num << " is no animal used\n";
-    }
-    
-    return check;
+    animalArr[animalNowIndex]->setMaxFoodAmt(maxFoodAmt);
 }
 
 void feed()
@@ -209,10 +207,6 @@ void feed()
         return;
     }
     
-    if(troughIsUsed(troughNumber)){
-        return;
-    }
-    
     cout << "How many: \n";
     cin >> number;
     troughArr[troughNumber] += number;
@@ -221,22 +215,15 @@ void feed()
 
 void showTroughInfo()
 {
-    int troughNum, animalNum;
-    bool used;
+    int troughNum;
     
     cout << "======TROUGH_INFOMATION=======\n";
     for(troughNum = 0;troughNum < maxTroughNum;troughNum++){
-        used = false;
         cout << setw(3) << troughNum << ". capacity: " << setw(4) << troughArr[troughNum];
-        for(animalNum = 0;animalNum < animalArrIndex;animalNum++){
-            if(troughNum == animalArr[animalNum]->getTroughSlotNum()){
-                cout << " ==> name: " << setw(4) << animalArr[animalNum]->getName()
-                     << "  energy_level: " << setw(4) << animalArr[animalNum]->getEnergyLevel();
-                used = true;
-                continue;
-            }
-        }
-        if(!used){
+        if(animalArrIsAssigned(troughNum)){
+        cout << " ==> name: " << setw(4) << animalArr[troughNum]->getName()
+             << "  energy_level: " << setw(4) << animalArr[troughNum]->getEnergyLevel();
+        }else{
             cout << " ==> No one using";
         }
         cout << endl;
@@ -247,39 +234,27 @@ void showTroughInfo()
 void display()
 {
     cout << "======ANIMAL_INFOMATION=======\n";
-    for(int i = 0;i < animalArrIndex;i++){
-        animalArr[i]->show();
+    for(int i = 0;i <= animalLastIndex;i++){
+        if(animalArrIsAssigned(i)){
+            animalArr[i]->show();
+        }
     }
     cout << "==============================\n\n\n";
 }
 
-
-template <class T>
-void call(T t) {
-    int i;
-    
-    cout << "======YO!YO!MAN!!=====\n";
-    for(i = 0;i < animalArrIndex;i++){
-        if(typeid(t).name() == typeid(*animalArr[i]).name()){
-            cout << "name: " << setw(4) << animalArr[i]->getName() << endl;
-            animalArr[i]->yell();
-            cout << endl;
-        }
-    }
-    cout << "=======================\n\n\n";
-}
-
 void call()
 {
-    int animalIndex, startIndex = 0, endIndex = animalArrIndex;
+    int animalIndex, startIndex = 0, endIndex = animalLastIndex;
     int answer;
     
     cout << "====Yell====\n";
     cout << "  0. ==> ALL\n";
 
-    for(animalIndex = 0;animalIndex < animalArrIndex;animalIndex++){
-        cout << setw(3) << animalIndex+1 << ".  ==>  name: "
-             << setw(4) << animalArr[animalIndex]->getName() << endl;
+    for(animalIndex = 0;animalIndex <= animalLastIndex;animalIndex++){
+        if(animalArrIsAssigned(animalIndex)){
+            cout << setw(3) << animalIndex+1 << ".  ==>  name: "
+                 << setw(4) << animalArr[animalIndex]->getName() << endl;
+        }
     }
     cin >> answer;
     
@@ -290,9 +265,11 @@ void call()
     }
     cout << "======YO!YO!MAN!!=====\n";
     for(animalIndex = startIndex;animalIndex < endIndex;animalIndex++){
+        if(animalArrIsAssigned(animalIndex)){
             cout << "name: " << setw(4) << animalArr[animalIndex]->getName() << endl;
             animalArr[animalIndex]->yell();
         }
+    }
     cout << "=======================\n\n\n";
 
 }
@@ -301,8 +278,10 @@ void advance()
 {
     int animalNum;
     
-    for(animalNum = 0;animalNum < animalArrIndex;animalNum++){
-        animalArr[animalNum]->active(troughArr);
+    for(animalNum = 0;animalNum <= animalLastIndex;animalNum++){
+        if(animalArrIsAssigned(animalNum)){
+            animalArr[animalNum]->active(troughArr);
+        }
     }
     
     checkDecease();
@@ -310,27 +289,26 @@ void advance()
 
 void checkDecease()
 {
-    int animalNum, nowAnimalArrIndex, troughNum;
+    int animalNum, lastNum = 0;
+    bool firstDelete = true;
     
-    for(animalNum = 0;animalNum < animalArrIndex;animalNum++){
-        if(animalArr[animalNum]->getEnergyLevel() <= 0){
-            cout << setw(4) << animalArr[animalNum]->getName() << " is dead" << endl;
-            troughArr[animalArr[animalNum]->getTroughSlotNum()] = 0;
-            
-            delete animalArr[animalNum];
-            for(nowAnimalArrIndex = animalNum;nowAnimalArrIndex < animalArrIndex-1;nowAnimalArrIndex++){
-                troughNum = animalArr[nowAnimalArrIndex+1]->getTroughSlotNum();
+    for(animalNum = 0;animalNum <= animalLastIndex;animalNum++){
+        if(animalArrIsAssigned(animalNum)){
+            if(animalArr[animalNum]->getEnergyLevel() <= 0){
+                cout << setw(4) << animalArr[animalNum]->getName() << " is dead" << endl;
+                animalArr[animalNum] = nullptr;
                 
-                animalArr[nowAnimalArrIndex] = animalArr[nowAnimalArrIndex + 1];
-                troughArr[nowAnimalArrIndex] = troughArr[nowAnimalArrIndex + 1];
-                animalArr[nowAnimalArrIndex]->setTroughSlotNum(troughNum - 1);
+                if((animalNowIndex > animalNum) && firstDelete){
+                    animalNowIndex = animalNum;
+                }
+                
+                firstDelete = false;
+                animalTotalNumber--;
+            }else{
+                lastNum = animalNum;
             }
-            
-            animalArr[nowAnimalArrIndex] = NULL;
-            troughArr[nowAnimalArrIndex] = 0;
-            animalArrIndex--;
-            animalNum--;
         }
     }
+    animalLastIndex = lastNum;
 }
 
