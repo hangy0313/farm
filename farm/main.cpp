@@ -261,10 +261,10 @@ void call()
     
     if(answer != 0){
         startIndex = answer - 1;
-        endIndex = answer;
+        endIndex = answer-1;
     }
     cout << "======YO!YO!MAN!!=====\n";
-    for(animalIndex = startIndex;animalIndex < endIndex;animalIndex++){
+    for(animalIndex = startIndex;animalIndex <= endIndex;animalIndex++){
         if(animalArrIsAssigned(animalIndex)){
             cout << "name: " << setw(4) << animalArr[animalIndex]->getName() << endl;
             animalArr[animalIndex]->yell();
