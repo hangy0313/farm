@@ -8,13 +8,6 @@
 
 #include "Horse.h"
 
-Horse::Horse()
-{
-    setEatPeriod(4);
-    setMaxFoodAmt(20);
-    setPeriodDowncount(4);
-}
-
 void Horse::yell()
 {
     if(getEnergyLevel() >=0 && getEnergyLevel() <= 5){

@@ -8,13 +8,6 @@
 
 #include "Chicken.h"
 
-Chicken::Chicken()
-{
-    setEatPeriod(1);
-    setMaxFoodAmt(5);
-    setPeriodDowncount(1);
-}
-
 void Chicken::yell()
 {
     if(getEnergyLevel() >=0 && getEnergyLevel() <= 5){

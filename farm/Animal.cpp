@@ -106,6 +106,7 @@ int Animal::getTroughSlotNum()
 void Animal::setEatPeriod(int ep)
 {
     eatPeriod = ep;
+    setPeriodDowncount(ep);
 };
 
 int Animal::getEatPeriod()

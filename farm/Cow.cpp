@@ -8,13 +8,6 @@
 
 #include "Cow.h"
 
-Cow::Cow()
-{
-    setEatPeriod(3);
-    setMaxFoodAmt(15);
-    setPeriodDowncount(3);
-}
-
 void Cow::yell()
 {
     if(getEnergyLevel() >=0 && getEnergyLevel() <= 5){

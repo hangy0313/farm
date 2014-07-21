@@ -15,7 +15,6 @@
 class Cat:public Animal
 {
 public:
-    Cat();
     virtual void yell();
 };
 

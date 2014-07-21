@@ -15,7 +15,6 @@
 class Chicken:public Animal
 {
 public:
-    Chicken();
     virtual void yell();
 };
 

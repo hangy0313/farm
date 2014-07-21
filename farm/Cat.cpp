@@ -8,13 +8,6 @@
 
 #include "Cat.h"
 
-Cat::Cat()
-{
-    setEatPeriod(2);
-    setMaxFoodAmt(10);
-    setPeriodDowncount(2);
-}
-
 void Cat::yell()
 {
     if(getEnergyLevel() >=0 && getEnergyLevel() <= 5){
